@@ -10,7 +10,7 @@ data = open('dados.json', "r")
 characters_dict = json.load(data)["Champions"]
 
 # Directory where images are stored
-image_dir = os.path.join(app.root_path, 'Nova pasta')
+image_dir = os.path.join(app.root_path, 'Imagens')
 
 @app.route('/champion')
 def get_champion():
@@ -33,4 +33,4 @@ def get_image(filename):
     return send_from_directory(image_dir, filename)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
