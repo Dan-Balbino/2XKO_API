@@ -1,0 +1,40 @@
+{
+    "Champions": {
+        "Yasuo": {
+            "Title": "The unforgiven",
+            "Description": "An Ionian of deep resolve, Yasuo is an agile swordsman who wields the air itself against his enemies. He excels at mid-range, using the power of the wind to dash through opponents and block projectiles.",
+            "Region": "Ionia",
+            "Image": "Yasuo.png"
+        },
+        "Ahri": {
+            "Title": "The nine-tailed fox",
+            "Description": "Ahri is a fox-like vastaya who can manipulate her prey's emotions and consume their essence. She's a highly mobile mage with tons of pressure tools at her disposal.",
+            "Region": "Ionia",
+            "Image": "Ahri.png"
+        },
+        "Darius": {
+            "Title": "The hand of Noxus",
+            "Description": "Rising from humble origins to become a bringer of true carnage, Darius cleaves through the empire's enemies. He's a mid-range fighter with attacks just as brutal and deadly as his axe.",
+            "Region": "Noxus",
+            "Image": "Darius.png"
+        },
+        "Ekko": {
+            "Title": "The boy who shattered the time",
+            "Description": "A prodigy from the rough streets of Zaun, Ekko manipulates time to twist any situation to his advantage. Using his own invention, the Z-Drive, he thrives in pressure mixups and burst mobility.",
+            "Region": "Zaun",
+            "Image": "Ekko.png"    
+        },
+        "Illaoi": {
+            "Title": "The krakken priestess",
+            "Description": "The Truth-Bearer of Nagakabouros, Illaoi wields a massive totem to test the will of her enemies and summon spectral tentacles to fight by her side. She's a high-damage lockdown bruiser who overwhelms enemies with pressure as immense as her faith.",
+            "Region": "Bilgewater",
+            "Image": "Illaoi.png"
+        },
+        "Braum": {
+            "Title": "The heart of Freljord",
+            "Description": "Braum roams the frostbitten wilds of the Freljord, lending his shield to those in need. He deploys a wide range of defensive utility, massive close-range attacks, and a small army of poros to protect his allies and freeze his enemies in their tracks.",
+            "Region": "Freljord",
+            "Image": "Braum.png"
+        }
+    }
+}
