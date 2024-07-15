@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2XKO Champion API</title>
+    <style>
+        /* Estilos CSS para a página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5; /* Fundo mais claro para melhor contraste */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra suave */
+            border-radius: 8px;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .champion-info {
+            margin-top: 10px;
+            padding: 15px;
+            border: 1px solid #eee;
+            background-color: #fff;
+            display: flex;
+            align-items: flex-start;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra sutil */
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .champion-info:hover {
+            transform: translateY(-3px); /* Efeito de elevação no hover */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .champion-info img {
+            max-width: 150px;
+            height: auto;
+            margin-right: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .champion-info div {
+            flex-grow: 1;
+        }
+        p {
+            margin: 8px 0;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cabeçalho da página -->
+        <h1>2XKO Champion API</h1>
+        <!-- Input para inserir o nome do campeão -->
+        <input id="inputText" type="text" placeholder="Digite o nome do campeão aqui..." style="width: 97%; padding: 10px; margin-bottom: 10px;"><br>
+        <!-- Botão para enviar a requisição -->
+        <button onclick="sendRequest()" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; border-radius: 4px;">Enviar</button>
+        <!-- Div para exibir o resultado da requisição -->
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Função assíncrona para enviar a requisição à API Flask
+        async function sendRequest() {
+            // Obtém o valor do input de texto
+            const inputText = document.getElementById('inputText').value.trim();
+            // Elemento HTML onde o resultado será exibido
+            const resultDiv = document.getElementById('result');
+            
+            // Verifica se o input está vazio
+            if (inputText === '') {
+                resultDiv.innerHTML = '<pre>Por favor, insira um nome de campeão.</pre>';
+                return;
+            }
+
+            // URL da API com o nome do campeão como parâmetro
+            const apiUrl = `http://127.0.0.1:5000/champion?name=${encodeURIComponent(inputText)}`;
+            
+            try {
+                // Envia a requisição GET para a API
+                const response = await fetch(apiUrl);
+                
+                // Verifica se a resposta da API foi bem-sucedida
+                if (!response.ok) {
+                    if (response.status === 4) {
+                        resultDiv.innerHTML = '<pre>Champion not found</pre>';
+                    } else {
+                        throw new Error('Erro na requisição: ' + response.statusText);
+                    }
+                } else {
+                    // Converte a resposta da API para JSON
+                    const data = await response.json();
+
+                    // Limpa resultados anteriores da div
+                    resultDiv.innerHTML = '';
+
+                    // Exibe as informações do campeão e a imagem, se disponível
+                    for (const championName in data) {
+                        if (data.hasOwnProperty(championName)) {
+                            const championInfo = data[championName];
+                            const championDiv = document.createElement('div');
+                            championDiv.classList.add('champion-info');
+                            championDiv.innerHTML = `
+                                <img src="${championInfo.image_url}" alt="${championName} Image">
+                                <div>
+                                    <h3>${championName}, ${championInfo.Title}</h3>
+                                    <p><strong>Region:</strong> ${championInfo.Region}</p>
+                                    <p><strong>Description:</strong> ${championInfo.Description}</p>
+                                </div>
+                            `;
+                            resultDiv.appendChild(championDiv);
+                        }
+                    }
+                }
+            } catch (error) {
+                // Exibe mensagens de erro caso a requisição falhe
+                resultDiv.innerHTML = '<pre>' + error.message + '</pre>';
+            }
+        }
+    </script>
+</body>
+</html>
